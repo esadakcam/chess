@@ -21,7 +21,6 @@ class App:
     def main(self):
         while self.running:
             for event in pg.event.get():
-
                 if event.type == pg.QUIT:
                     self.running = False
                 if event.type == pg.MOUSEBUTTONDOWN:
@@ -35,6 +34,7 @@ class App:
                             self.white_piece = piece
                         else:
                             self.black_piece = piece
+                    print(piece.available_moves(self.board))
                 if event.type == pg.MOUSEBUTTONUP:
                     pos = pg.mouse.get_pos()
                     end_turn = False
@@ -54,4 +54,8 @@ class App:
             self.screen.blit(self.board_background,
                              self.board_background.get_rect())
             self.board.draw(self.screen)
+            if(self.turn == 0 and self.white_piece is not None):
+                for move in self.white_piece.available_moves(self.board):
+                    pg.draw.circle(
+                        self.screen, (0, 0, 0), ((move[0] * 64) + 32, (move[1] * 64) + 32), 15)
             pg.display.update()
