@@ -1,4 +1,5 @@
 import pygame
+from abc import abstractmethod
 
 
 class Piece:
@@ -10,10 +11,6 @@ class Piece:
         self.name = name
         self.board_x = x / 64
         self.board_y = y / 64
-
-    def available_moves(self, board):
-        return []
-# TODO: make abstract method
 
     def update(self, board, x, y):
         for piece in board.pieces:
@@ -27,3 +24,8 @@ class Piece:
 
     def draw(self, screen):
         screen.blit(self.img, (self.x, self.y))
+
+    @abstractmethod
+    def available_moves(self, board):
+        pass
+#
