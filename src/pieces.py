@@ -35,6 +35,12 @@ class Pieces:
         self.pieces.append(Piece(os.path.join(
             os.getcwd(), "assets/pieces/b_king.png"), 256, 0, "black", "king"))
 
+    def get_piece_by_index(self, x, y):
+        for piece in self.pieces:
+            if piece.board_x == x and piece.board_y == y:
+                return piece
+        return None
+
     def draw(self, screen):
         for piece in self.pieces:
             piece.draw(screen)
