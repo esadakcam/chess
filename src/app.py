@@ -21,11 +21,11 @@ class App:
 
     def __hover_available_moves(self):
         if(self.turn == 0 and self.white_piece is not None):
-            for move in self.white_piece.available_moves(self.board):
+            for move in self.white_piece.available_moves(self.board, self.previous_turn_piece):
                 pg.draw.circle(
                     self.screen, (210, 105, 30), ((move[0] * 64) + 32, (move[1] * 64) + 32), 10)
         elif(self.turn == 1 and self.black_piece is not None):
-            for move in self.black_piece.available_moves(self.board):
+            for move in self.black_piece.available_moves(self.board, self.previous_turn_piece):
                 pg.draw.circle(
                     self.screen, (210, 105, 30), ((move[0] * 64) + 32, (move[1] * 64) + 32), 10)
 
@@ -34,10 +34,10 @@ class App:
         end_turn = False
         if self.turn == 0 and self.white_piece is not None:
             end_turn = self.white_piece.update(
-                self.board, pos[0]//64, pos[1]//64)
+                self.board, pos[0]//64, pos[1]//64, self.previous_turn_piece)
         elif self.turn == 1 and self.black_piece is not None:
             end_turn = self.black_piece.update(
-                self.board, pos[0]//64, pos[1]//64)
+                self.board, pos[0]//64, pos[1]//64, self.previous_turn_piece)
         if end_turn:
             if self.turn:
                 self.previous_turn_piece = self.black_piece
