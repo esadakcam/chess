@@ -58,26 +58,10 @@ class Pawn(Piece):
             self.__available_moves_for_black(moves, board, previous_turn_piece)
         return moves
 
-    def __valid_move(self, x, y, board, previous_turn_piece):
-        moves = self.available_moves(board, previous_turn_piece)
-        for (x_pos, y_pos) in moves:
-            if x_pos == x and y_pos == y:
-                return True
-        return False
-
     def update(self, board, x, y, previous_turn_piece):
-        if not self.__valid_move(x, y, board, previous_turn_piece):
+        success = super().update(board, x, y, previous_turn_piece)
+        if not success:
             return False
-        for piece in board.pieces:
-            if piece.board_x == x and piece.board_y == y:
-                if piece.color == self.color:
-                    return False
-                else:
-                    board.pieces.remove(piece)
-        self.board_x = x
-        self.board_y = y
-        self.x = self.board_x * 64
-        self.y = self.board_y * 64
         if self.__enpassant_position == (x, y):
             self.__enpassant_position = None
             if self.color == "white":

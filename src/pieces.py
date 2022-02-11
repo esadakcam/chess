@@ -29,9 +29,9 @@ class Pieces:
             self.pieces.append(Knight(os.path.join(os.getcwd(
             ), "assets/pieces/b_knight.png"), (i * 320) + 64, 0, "black", "knight"))
             self.pieces.append(Bishop(os.path.join(os.getcwd(
-            ), "assets/pieces/w_bishop.png"), (i * 192) + 128, 448, "white", "bishop"))
+            ), "assets/pieces/w_bishop.png"), (i * 192) + 128, 448, "white", "bishop", i))
             self.pieces.append(Bishop(os.path.join(os.getcwd(
-            ), "assets/pieces/b_bishop.png"), (i * 192) + 128, 0, "black", "bishop"))
+            ), "assets/pieces/b_bishop.png"), (i * 192) + 128, 0, "black", "bishop", i))
         self.pieces.append(Queen(os.path.join(
             os.getcwd(), "assets/pieces/w_queen.png"), 192, 448, "white", "queen"))
         self.pieces.append(Queen(os.path.join(
