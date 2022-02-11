@@ -34,3 +34,25 @@ class Pawn(Piece):
         else:
             self.__available_moves_for_black(moves, board)
         return moves
+
+    def update(self, board, x, y):
+        moves = self.available_moves(board)
+       # TODO: bug for loop
+        valid_move = False
+        for (x_pos, y_pos) in moves:
+            if x_pos == x and y_pos == y:
+                valid_move = True
+                break
+        if not valid_move:
+            return False
+        for piece in board.pieces:
+            if piece.board_x == x and piece.board_y == y:
+                if piece.color == self.color:
+                    return False
+                else:
+                    board.pieces.remove(piece)
+        self.board_x = x
+        self.board_y = y
+        self.x = self.board_x * 64
+        self.y = self.board_y * 64
+        return True
