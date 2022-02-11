@@ -11,11 +11,13 @@ class Piece:
         self.name = name
         self.board_x = x / 64
         self.board_y = y / 64
+        self.previous_position = (self.board_x, self.board_y)
 
     def draw(self, screen):
         screen.blit(self.img, (self.x, self.y))
 
     def _set_pos(self, x, y):
+        self.previous_position = (self.board_x, self.board_y)
         self.board_x = x
         self.board_y = y
         self.x = self.board_x * 64

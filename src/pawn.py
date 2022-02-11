@@ -31,7 +31,7 @@ class Pawn(Piece):
         self.__enpassant_for_black(moves, previous_turn_piece)
 
     def __enpassant_for_white(self, moves, previous_turn_piece):
-        if not previous_turn_piece or self.board_y != 3 or previous_turn_piece.name != "pawn":
+        if not previous_turn_piece or self.board_y != 3 or previous_turn_piece.board_y != 3 or previous_turn_piece.name != "pawn" or previous_turn_piece.previous_position[1] != 1:
             return
         if self.board_x == previous_turn_piece.board_x + 1:
             moves.append((self.board_x - 1, self.board_y - 1))
@@ -41,7 +41,7 @@ class Pawn(Piece):
             self.__enpassant_position = (self.board_x + 1, self.board_y - 1)
 
     def __enpassant_for_black(self, moves, previous_turn_piece):
-        if not previous_turn_piece or self.board_y != 4 or previous_turn_piece.name != "pawn":
+        if not previous_turn_piece or self.board_y != 4 or previous_turn_piece.board_y != 4 or previous_turn_piece.name != "pawn" or previous_turn_piece.previous_position[1] != 6:
             return
         if self.board_x == previous_turn_piece.board_x + 1:
             moves.append((self.board_x - 1, self.board_y + 1))
