@@ -28,4 +28,7 @@ class Piece:
     @abstractmethod
     def available_moves(self, board):
         pass
-#
+
+    @abstractmethod
+    def take_piece(self, board, x, y):
+        pass
