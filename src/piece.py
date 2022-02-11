@@ -16,9 +16,9 @@ class Piece:
         screen.blit(self.img, (self.x, self.y))
 
     @abstractmethod
-    def available_moves(self, board):
+    def available_moves(self, board, previous_turn_piece):
         pass
 
     @abstractmethod
-    def update(self, board, x, y):
+    def update(self, board, x, y, previous_turn_piece):
         pass
