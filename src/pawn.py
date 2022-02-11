@@ -18,7 +18,7 @@ class Pawn(Piece):
             moves.append((self.board_x - 1, self.board_y - 1))
         self.__enpassant_for_white(moves, previous_turn_piece)
 
-    def __available_moves_for_black(self, moves, board):
+    def __available_moves_for_black(self, moves, board, previous_turn_piece):
         if self.board_y == 1:
             if board.get_piece_by_index(self.board_x, self.board_y + 2) is None:
                 moves.append((self.board_x, self.board_y + 2))
@@ -28,6 +28,7 @@ class Pawn(Piece):
             moves.append((self.board_x + 1, self.board_y + 1))
         if board.get_piece_by_index(self.board_x - 1, self.board_y + 1) is not None and board.get_piece_by_index(self.board_x - 1, self.board_y + 1).color == "white":
             moves.append((self.board_x - 1, self.board_y + 1))
+        self.__enpassant_for_black(moves, previous_turn_piece)
 
     def __enpassant_for_white(self, moves, previous_turn_piece):
         if not previous_turn_piece or self.board_y != 3 or previous_turn_piece.name != "pawn":
@@ -39,15 +40,22 @@ class Pawn(Piece):
             moves.append((self.board_x + 1, self.board_y - 1))
             self.__enpassant_position = (self.board_x + 1, self.board_y - 1)
 
-    def enpassant_for_black(self, moves, previous_turn_piece):
-        pass
+    def __enpassant_for_black(self, moves, previous_turn_piece):
+        if not previous_turn_piece or self.board_y != 4 or previous_turn_piece.name != "pawn":
+            return
+        if self.board_x == previous_turn_piece.board_x + 1:
+            moves.append((self.board_x - 1, self.board_y + 1))
+            self.__enpassant_position = (self.board_x - 1, self.board_y + 1)
+        elif self.board_x == previous_turn_piece.board_x - 1:
+            moves.append((self.board_x + 1, self.board_y + 1))
+            self.__enpassant_position = (self.board_x + 1, self.board_y + 1)
 
     def available_moves(self, board, previous_turn_piece):
         moves = []
         if self.color == "white":
             self.__available_moves_for_white(moves, board, previous_turn_piece)
         else:
-            self.__available_moves_for_black(moves, board)
+            self.__available_moves_for_black(moves, board, previous_turn_piece)
         return moves
 
     def __valid_move(self, x, y, board, previous_turn_piece):
@@ -74,4 +82,6 @@ class Pawn(Piece):
             self.__enpassant_position = None
             if self.color == "white":
                 board.pieces.remove(board.get_piece_by_index(x, y + 1))
+            else:
+                board.pieces.remove(board.get_piece_by_index(x, y - 1))
         return True
