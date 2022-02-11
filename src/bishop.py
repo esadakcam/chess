@@ -2,9 +2,8 @@ from piece import Piece
 
 
 class Bishop(Piece):
-    def __init__(self, img, x, y, color, name, square):
+    def __init__(self, img, x, y, color, name):
         super().__init__(img, x, y, color, name)
-        self.square = square
 
     def available_moves(self, board, previous_turn_piece):
         moves = []
