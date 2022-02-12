@@ -12,6 +12,8 @@ class Pieces:
     def __init__(self):
         self.pieces = []
         self.__fill_piece_list()
+        self.check_for_white = False
+        self.check_for_black = False
 
     def __fill_piece_list(self):
         for i in range(8):

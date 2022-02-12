@@ -18,18 +18,20 @@ class App:
         self.white_piece = None
         self.previous_turn_piece = None
         self.turn = 0
-        self.check_for_black = False
-        self.check_for_white = False
 
     def __hover_available_moves(self):
         if(self.turn == 0 and self.white_piece is not None):
             for move in self.white_piece.available_moves(self.board, self.previous_turn_piece):
-                pg.draw.circle(
-                    self.screen, (210, 105, 30), ((move[0] * 64) + 32, (move[1] * 64) + 32), 10)
+                if self.white_piece.valid_move(move[0], move[1], self.board, self.previous_turn_piece):
+                    pg.draw.circle(
+                        self.screen, (210, 105, 30), ((move[0] * 64) + 32, (move[1] * 64) + 32), 10)
         elif(self.turn == 1 and self.black_piece is not None):
+
             for move in self.black_piece.available_moves(self.board, self.previous_turn_piece):
-                pg.draw.circle(
-                    self.screen, (210, 105, 30), ((move[0] * 64) + 32, (move[1] * 64) + 32), 10)
+
+                if self.black_piece.valid_move(move[0], move[1], self.board, self.previous_turn_piece):
+                    pg.draw.circle(
+                        self.screen, (210, 105, 30), ((move[0] * 64) + 32, (move[1] * 64) + 32), 10)
 
     def __mouse_button_up(self):
         pos = pg.mouse.get_pos()
@@ -76,9 +78,9 @@ class App:
             if(piece.color == "white"):
                 for move in piece.available_moves(self.board, self.previous_turn_piece):
                     if(move[0] == king.board_x and move[1] == king.board_y):
-                        self.check_for_black = True
+                        self.board.check_for_black = True
                         return
-        self.check_for_black = False
+        self.board.check_for_black = False
 
     def __control_check_white(self):
         king = self.board.get_king("white")
@@ -88,9 +90,9 @@ class App:
             if(piece.color == "black"):
                 for move in piece.available_moves(self.board, self.previous_turn_piece):
                     if(move[0] == king.board_x and move[1] == king.board_y):
-                        self.check_for_white = True
+                        self.board.check_for_white = True
                         return
-        self.check_for_white = False
+        self.board.check_for_white = False
 
     def main(self):
         while self.running:
