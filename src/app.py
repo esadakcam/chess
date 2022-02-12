@@ -18,6 +18,8 @@ class App:
         self.white_piece = None
         self.previous_turn_piece = None
         self.turn = 0
+        self.check_for_black = False
+        self.check_for_white = False
 
     def __hover_available_moves(self):
         if(self.turn == 0 and self.white_piece is not None):
@@ -63,6 +65,32 @@ class App:
             self.previous_turn_piece = self.white_piece
             self.white_piece = None
         self.turn = (self.turn + 1) % 2
+        self.__control_check_black()
+        self.__control_check_white()
+
+    def __control_check_black(self):
+        king = self.board.get_king("black")
+        for piece in self.board.pieces:
+            if piece.name == "king":
+                continue
+            if(piece.color == "white"):
+                for move in piece.available_moves(self.board, self.previous_turn_piece):
+                    if(move[0] == king.board_x and move[1] == king.board_y):
+                        self.check_for_black = True
+                        return
+        self.check_for_black = False
+
+    def __control_check_white(self):
+        king = self.board.get_king("white")
+        for piece in self.board.pieces:
+            if piece.name == "king":
+                continue
+            if(piece.color == "black"):
+                for move in piece.available_moves(self.board, self.previous_turn_piece):
+                    if(move[0] == king.board_x and move[1] == king.board_y):
+                        self.check_for_white = True
+                        return
+        self.check_for_white = False
 
     def main(self):
         while self.running:

@@ -47,6 +47,11 @@ class Pieces:
                 return piece
         return None
 
+    def get_king(self, color):
+        for piece in self.pieces:
+            if piece.name == "king" and piece.color == color:
+                return piece
+
     def draw(self, screen):
         for piece in self.pieces:
             piece.draw(screen)

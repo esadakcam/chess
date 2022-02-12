@@ -51,7 +51,8 @@ class Piece:
             if piece.color == self.color:
                 continue
             if (self.board_x, self.board_y) in piece.available_moves(board, previous_turn_piece):
+                self.color = previous_color
                 self.guarded = True
-                break
+                return
         self.color = previous_color
         self.guarded = False
