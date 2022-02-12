@@ -1,0 +1,7 @@
+autopep8==1.6.0
+Pillow==9.0.1
+pycodestyle==2.8.0
+pygame==2.1.2
+six==1.16.0
+toml==0.10.2
+trollius==2.1.post2
