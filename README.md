@@ -4,4 +4,5 @@ $ pip install -r requirements.txt <br/>
 $ python main.py 
 
 Here is an image: <br/>
-![](https://github.com/esadakcam/chess/blob/main/img/img.jpeg =512x512)
+<img src = "https://github.com/esadakcam/chess/blob/main/img/img.jpeg" width = "512" height = "512"/>
+
