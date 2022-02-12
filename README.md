@@ -4,4 +4,4 @@ $ pip install -r requirements.txt <br/>
 $ python main.py 
 
 Here is an image: <br/>
-![alt text](https://github.com/esadakcam/chess/blob/main/img/img.jpeg =512x512)
+![](https://github.com/esadakcam/chess/blob/main/img/img.jpeg =512x512)
