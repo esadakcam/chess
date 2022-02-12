@@ -12,6 +12,7 @@ class Piece:
         self.board_x = x / 64
         self.board_y = y / 64
         self.previous_position = (self.board_x, self.board_y)
+        self.guarded = True
 
     def draw(self, screen):
         screen.blit(self.img, (self.x, self.y))
@@ -41,3 +42,16 @@ class Piece:
             board.pieces.remove(board.get_piece_by_index(x, y))
         self._set_pos(x, y)
         return True
+
+    def update_guarded(self, board, previous_turn_piece):
+        previous_color = self.color
+        self.color = "black" if self.color == "white" else "white"
+
+        for piece in board.pieces:
+            if piece.color == self.color:
+                continue
+            if (self.board_x, self.board_y) in piece.available_moves(board, previous_turn_piece):
+                self.guarded = True
+                break
+        self.color = previous_color
+        self.guarded = False

@@ -39,13 +39,7 @@ class App:
             end_turn = self.black_piece.update(
                 self.board, pos[0]//64, pos[1]//64, self.previous_turn_piece)
         if end_turn:
-            if self.turn:
-                self.previous_turn_piece = self.black_piece
-                self.black_piece = None
-            else:
-                self.previous_turn_piece = self.white_piece
-                self.white_piece = None
-            self.turn = (self.turn + 1) % 2
+            self.__handle_end_turn()
 
     def __mouse_button_down(self):
         pos = pg.mouse.get_pos()
@@ -58,6 +52,17 @@ class App:
                 self.white_piece = piece
             else:
                 self.black_piece = piece
+
+    def __handle_end_turn(self):
+        for piece in self.board.pieces:
+            piece.update_guarded(self.board, self.previous_turn_piece)
+        if self.turn:
+            self.previous_turn_piece = self.black_piece
+            self.black_piece = None
+        else:
+            self.previous_turn_piece = self.white_piece
+            self.white_piece = None
+        self.turn = (self.turn + 1) % 2
 
     def main(self):
         while self.running:
